@@ -4,13 +4,15 @@ import CarouselContext from "../context/carouselContext";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Navigation } from "swiper";
-import { Box, Button } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import ClickableImage from "./ClickableImage";
 
 const ImgCarousel = () => {
+  const isTabletOrSmaller = useMediaQuery("(max-width: 768px)");
+
   const { images } = useContext(CarouselContext);
 
   return (
@@ -22,11 +24,12 @@ const ImgCarousel = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          textAlign: 'center'
         }}
       >
         <Swiper
           spaceBetween={50}
-          slidesPerView={3}
+          slidesPerView={isTabletOrSmaller ? 1 : 2}
           navigation={true}
           modules={[Navigation]}
           direction="horizontal"

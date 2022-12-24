@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Box, IconButton, Modal, Stack } from "@mui/material";
+import { Box, IconButton, Modal, Stack, useMediaQuery } from "@mui/material";
 import CarouselContext from "../context/carouselContext";
 import ClearIcon from "@mui/icons-material/Clear";
 
@@ -15,24 +15,25 @@ const style = {
 };
 
 const AmazonModal = ({ initialIndex, open, handleClose }) => {
+  const isTabletOrSmaller = useMediaQuery("(max-width: 768px)");
   const { images } = useContext(CarouselContext);
   const [activeIndex, setActiveIndex] = useState(initialIndex);
 
   const handleKeyDown = (e) => {
-    if (e.key === "ArrowUp") {
-        if(activeIndex > 0) {
-            setActiveIndex(activeIndex - 1);
-        } else {
-            setActiveIndex(images.length - 1);
-        }
-    } else if (e.key === "ArrowDown") {
+    if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+      if (activeIndex > 0) {
+        setActiveIndex(activeIndex - 1);
+      } else {
+        setActiveIndex(images.length - 1);
+      }
+    } else if (e.key === "ArrowDown" || e.key === "ArrowRight") {
       if (activeIndex < images.length - 1) {
         setActiveIndex(activeIndex + 1);
       } else {
         setActiveIndex(0);
       }
     }
-  }
+  };
 
   return (
     <>
@@ -43,10 +44,10 @@ const AmazonModal = ({ initialIndex, open, handleClose }) => {
               <ClearIcon />
             </IconButton>
           </Stack>
-          <Stack sx={{ p: 4 }} direction="row" spacing={4}>
-            <img src={images[activeIndex]} width="600" />
+          <Stack sx={{ p: 4 }} direction={isTabletOrSmaller ? "column" : "row"} spacing={4}>
+            <img src={images[activeIndex]} width={isTabletOrSmaller ? "300" : "600"} />
             <Box>
-              <Stack direction="column" spacing={1}>
+              <Stack direction={isTabletOrSmaller ? "row" : "column"} spacing={1}>
                 {images.map((image, index) => (
                   <img
                     style={{
@@ -55,7 +56,7 @@ const AmazonModal = ({ initialIndex, open, handleClose }) => {
                     }}
                     key={index}
                     src={image}
-                    width="100"
+                    width={isTabletOrSmaller ? "55" : "100"}
                     onClick={() => setActiveIndex(index)}
                   />
                 ))}
