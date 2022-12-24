@@ -17,15 +17,18 @@ const style = {
 const AmazonModal = ({ initialIndex, open, handleClose }) => {
   const { images } = useContext(CarouselContext);
 
-  const image = images[initialIndex];
   return (
     <>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
-          <Stack direction="row" spacing={2}>
-            <img src={image} width="350" />
+          <Stack direction="row" spacing={4}>
+            <img src={images[initialIndex]} width="400" />
             <Box>
-                Our vertical carousel goes here
+               <Stack direction="column" spacing={1}>
+                    {
+                        images.map((image, index) => (<img src={image} width="100" />))
+                    }
+               </Stack>
             </Box>
           </Stack>
         </Box>
