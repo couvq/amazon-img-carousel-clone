@@ -8,19 +8,22 @@ import { Box, Button } from "@mui/material";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
+import ClickableImage from "./ClickableImage";
 
 const ImgCarousel = () => {
   const { images } = useContext(CarouselContext);
 
   return (
     <>
-      <Box sx={{
-          width: '100vw',
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-      }}>
+      <Box
+        sx={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Swiper
           spaceBetween={50}
           slidesPerView={3}
@@ -28,9 +31,11 @@ const ImgCarousel = () => {
           modules={[Navigation]}
           direction="horizontal"
         >
-          {
-              images.map((image, index) => <SwiperSlide key={index}><img src={image} width="350" /></SwiperSlide>)
-          }
+          {images.map((image, index) => (
+            <SwiperSlide key={index}>
+              <ClickableImage index={index} />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </Box>
     </>
