@@ -1,11 +1,15 @@
-import './App.css';
+import "./App.css";
+import ImgCarousel from "./components/ImgCarousel";
+import { CarouselProvider } from "./context/carouselContext";
 
-function App() {
+const App = () => {
   return (
     <>
-      Amazon Image Carousel Clone
+      <CarouselProvider>
+        <ImgCarousel />
+      </CarouselProvider>
     </>
   );
-}
+};
 
 export default App;
