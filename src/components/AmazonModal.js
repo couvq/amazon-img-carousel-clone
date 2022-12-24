@@ -18,10 +18,26 @@ const AmazonModal = ({ initialIndex, open, handleClose }) => {
   const { images } = useContext(CarouselContext);
   const [activeIndex, setActiveIndex] = useState(initialIndex);
 
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowUp") {
+        if(activeIndex > 0) {
+            setActiveIndex(activeIndex - 1);
+        } else {
+            setActiveIndex(images.length - 1);
+        }
+    } else if (e.key === "ArrowDown") {
+      if (activeIndex < images.length - 1) {
+        setActiveIndex(activeIndex + 1);
+      } else {
+        setActiveIndex(0);
+      }
+    }
+  }
+
   return (
     <>
       <Modal open={open} onClose={handleClose}>
-        <Box sx={style}>
+        <Box sx={style} onKeyDown={handleKeyDown}>
           <Stack direction="row" justifyContent="flex-end">
             <IconButton onClick={handleClose}>
               <ClearIcon />
@@ -37,6 +53,7 @@ const AmazonModal = ({ initialIndex, open, handleClose }) => {
                       cursor: "pointer",
                       border: activeIndex === index ? "3px solid orange" : "",
                     }}
+                    key={index}
                     src={image}
                     width="100"
                     onClick={() => setActiveIndex(index)}
