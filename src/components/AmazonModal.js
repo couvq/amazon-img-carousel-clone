@@ -28,7 +28,7 @@ const AmazonModal = ({ initialIndex, open, handleClose }) => {
             </IconButton>
           </Stack>
           <Stack sx={{ p: 4 }} direction="row" spacing={4}>
-            <img src={images[activeIndex]} width="400" />
+            <img src={images[activeIndex]} width="600" />
             <Box>
               <Stack direction="column" spacing={1}>
                 {images.map((image, index) => (
